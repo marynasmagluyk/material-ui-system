@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
 import SideMenu from "../components/SideMenu";
-import {makeStyles} from '@material-ui/core';
+import {makeStyles, CssBaseline} from '@material-ui/core';
+import Header from "../components/Header";
 
 
 const useStyles = makeStyles({
-    appStyles: {
+    appMain: {
         paddingLeft: '320px',
         width: '100%'
     }
@@ -19,7 +20,10 @@ function App() {
     return (
         <div>
             <SideMenu/>
-            <div className={classes.appStyles}>here we go</div>
+            <div className={classes.appMain}>
+                <Header/>
+            </div>
+            <CssBaseline/>
         </div>
     );
 }
