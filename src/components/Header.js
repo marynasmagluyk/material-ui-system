@@ -1,5 +1,5 @@
-import React from 'react'
-import {AppBar, Toolbar, Grid, InputBase, IconButton, Badge, makeStyles} from '@material-ui/core'
+import React from 'react';
+import {AppBar, Toolbar, Grid, InputBase, IconButton, Badge, makeStyles} from '@material-ui/core';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
