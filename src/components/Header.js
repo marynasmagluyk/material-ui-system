@@ -1,16 +1,14 @@
 import React from 'react'
-import {AppBar, Toolbar, Grid, InputBase, IconButton, Badge} from '@material-ui/core'
+import {AppBar, Toolbar, Grid, InputBase, IconButton, Badge, makeStyles} from '@material-ui/core'
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import SearchIcon from '@material-ui/icons/Search';
-import {makeStyles} from '@material-ui/core';
 
 
 const useStyles = makeStyles(theme => ({
     root: {
         backgroundColor: '#fff',
-        // transform: 'translateZ(0)'
     },
     searchInput: {
         opacity: '0.6',
@@ -34,11 +32,12 @@ const Header = () => {
         <AppBar position="static"
                 className={classes.root}>
             <Toolbar>
-                <Grid container alignItems='center'>
+                <Grid container
+                      alignItems='center'>
                     <Grid item>
                         <InputBase
                             className={classes.searchInput}
-                            placeholder='Search topic'
+                            placeholder='Search topics'
                             startAdornment={<SearchIcon fontSize='small'/>}/>
                     </Grid>
                     <Grid item
@@ -49,10 +48,14 @@ const Header = () => {
                                    color="primary">
                                 <ChatBubbleIcon fontSize='small'/>
                             </Badge>
-                            <Badge badgeContent={1}
+                        </IconButton>
+                        <IconButton>
+                            <Badge badgeContent={3}
                                    color='secondary'>
                                 <NotificationsIcon fontSize='small'/>
                             </Badge>
+                        </IconButton>
+                        <IconButton>
                             <PowerSettingsNewIcon fontSize='small'/>
                         </IconButton>
                     </Grid>
@@ -61,5 +64,6 @@ const Header = () => {
         </AppBar>
     )
 };
+
 
 export default Header;
