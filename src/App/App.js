@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-
 import {makeStyles, CssBaseline, createMuiTheme} from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/core/styles';
-
+import {ThemeProvider} from '@material-ui/core/styles';
+import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 import SideMenu from "../components/SideMenu";
 import Header from "../components/Header";
+import PageHeader from "../components/PageHeader";
 
 const theme = createMuiTheme({
     palette: {
@@ -39,9 +39,10 @@ function App() {
         <ThemeProvider theme={theme}>
             <div>
                 <SideMenu/>
-                <div className={classes.appMain}>
+                <main className={classes.appMain}>
                     <Header/>
-                </div>
+                    <PageHeader title='Page Header' subtitle='Page Description' icon={<PeopleOutlineIcon/>}/>
+                </main>
                 <CssBaseline/>
             </div>
         </ThemeProvider>
