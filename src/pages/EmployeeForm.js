@@ -56,7 +56,7 @@ const EmployeeForm = () => {
                         label='Department'
                         value={employees.departmentId}
                         onChange={handleInputChange}
-                        options={employeeService.getDepartments}/>
+                        options={employeeService.getDepartments()}/>
                 </Grid>
             </Grid>
         </Form>

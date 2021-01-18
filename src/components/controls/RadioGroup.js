@@ -14,7 +14,7 @@ const Radios = (props) => {
                         onChange={onChange}>
                 {
                     items.map((item) => {
-                        return <FormControlLabel value={item.id}
+                        return <FormControlLabel key={item.id} value={item.id}
                                                 control={<Radio/>}
                                                 label={item.title}/>
                     })
