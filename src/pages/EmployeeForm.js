@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Grid, TextField, makeStyles} from '@material-ui/core';
+import {Grid, TextField, FormControl, RadioGroup, FormControlLabel, Radio, FormLabel} from '@material-ui/core';
 import {useForm, Form} from "../components/useForm";
 
 
@@ -42,7 +42,24 @@ const EmployeeForm = () => {
                         value={employees.email}>
                     </TextField>
                     <Grid item
-                          xs={6}></Grid>
+                          xs={6}>
+                        <FormControl>
+                            <FormLabel>Gender</FormLabel>
+                            <RadioGroup row
+                                        name='gender'
+                                        value={employees.fullName}
+                                        onChange={handleInputChange}></RadioGroup>
+                            <FormControlLabel value='female'
+                                              control={<Radio/>}
+                                              label='Female'></FormControlLabel>
+                            <FormControlLabel value='male'
+                                              control={<Radio/>}
+                                              label='Male'></FormControlLabel>
+                            <FormControlLabel value='other'
+                                              control={<Radio/>}
+                                              label='Other'></FormControlLabel>
+                        </FormControl>
+                    </Grid>
                 </Grid>
             </Grid>
         </Form>
