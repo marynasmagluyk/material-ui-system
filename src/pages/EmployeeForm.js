@@ -45,7 +45,8 @@ const EmployeeForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (validate()) {
-            window.alert('correct fields');
+            employeeService.insertEmployee(employees);
+            resetForm();
         }
     };
 
