@@ -1,9 +1,9 @@
 import React from 'react';
-import {Grid} from '@material-ui/core';
+import {Button as MuiButton, Grid} from '@material-ui/core';
 import {useForm, Form} from "../components/useForm";
 import Controls from '../components/controls/Controls';
 import * as employeeService from '../services/employeeService';
-import DatePicker from "../components/controls/DatePicker";
+
 
 const genderItems = [
     {id: 'male', title: 'Male'},
@@ -43,6 +43,16 @@ const EmployeeForm = () => {
                         label='Email'
                         value={employees.email}
                         onChange={handleInputChange}/>
+                    <Controls.Input
+                        name="mobile"
+                        label='Mobile'
+                        value={employees.mobile}
+                        onChange={handleInputChange}/>
+                    <Controls.Input
+                        name="city"
+                        label='City'
+                        value={employees.city}
+                        onChange={handleInputChange}/>
                 </Grid>
                     <Grid item
                           xs={6}>
@@ -70,6 +80,11 @@ const EmployeeForm = () => {
                         label='Permanent Employee'
                         value={employees.isPermanent}
                         onChange={handleInputChange}
+                        />
+                        <Controls.Button
+                            type='submit'
+                            text='submit'
+                            // onClick={onClick}
                         />
                 </Grid>
             </Grid>
