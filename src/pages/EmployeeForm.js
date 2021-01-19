@@ -3,6 +3,7 @@ import {Grid} from '@material-ui/core';
 import {useForm, Form} from "../components/useForm";
 import Controls from '../components/controls/Controls';
 import * as employeeService from '../services/employeeService';
+import DatePicker from "../components/controls/DatePicker";
 
 const genderItems = [
     {id: 'male', title: 'Male'},
@@ -57,6 +58,13 @@ const EmployeeForm = () => {
                         value={employees.departmentId}
                         onChange={handleInputChange}
                         options={employeeService.getDepartments()}/>
+                        <Controls.DatePicker
+                            name='hireDate'
+                            label='Hire Date'
+                            value={employees.hireDate}
+                            onChange={handleInputChange}
+                            options={employeeService.getDepartments()}
+                        />
                         <Controls.Checkbox
                         name='isPermanent'
                         label='Permanent Employee'
