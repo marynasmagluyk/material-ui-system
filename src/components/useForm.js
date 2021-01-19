@@ -21,11 +21,10 @@ export const useForm = (initialFormValues) => {
 export const Form = (props) => {
     const classes = useStyles();
 
-    return (<form className={classes.root}>
+    return (<form className={classes.root} autoComplete='off'>
         {props.children}
     </form>)
 };
-
 
 const useStyles = makeStyles(theme => ({
     root: {
