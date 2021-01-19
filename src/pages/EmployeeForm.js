@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button as MuiButton, Grid} from '@material-ui/core';
+import {Grid} from '@material-ui/core';
 import {useForm, Form} from "../components/useForm";
 import Controls from '../components/controls/Controls';
 import * as employeeService from '../services/employeeService';
@@ -34,10 +34,10 @@ const EmployeeForm = () => {
                 <Grid item
                       xs={6}>
                     <Controls.Input
-                    name='fullName'
-                    label='Full Name'
-                    value={employees.fullName}
-                    onChange={handleInputChange}/>
+                        name='fullName'
+                        label='Full Name'
+                        value={employees.fullName}
+                        onChange={handleInputChange}/>
                     <Controls.Input
                         name="email"
                         label='Email'
@@ -54,38 +54,43 @@ const EmployeeForm = () => {
                         value={employees.city}
                         onChange={handleInputChange}/>
                 </Grid>
-                    <Grid item
-                          xs={6}>
-                        <Controls.Radios name='gender'
-                                         label='Gender'
-                                         value={employees.gender}
-                                         onChange={handleInputChange}
-                        items={genderItems}/>
+                <Grid item
+                      xs={6}>
+                    <Controls.Radios name='gender'
+                                     label='Gender'
+                                     value={employees.gender}
+                                     onChange={handleInputChange}
+                                     items={genderItems}/>
 
-                        <Controls.Select
+                    <Controls.Select
                         name='departmentId'
                         label='Department'
                         value={employees.departmentId}
                         onChange={handleInputChange}
                         options={employeeService.getDepartments()}/>
-                        <Controls.DatePicker
-                            name='hireDate'
-                            label='Hire Date'
-                            value={employees.hireDate}
-                            onChange={handleInputChange}
-                            options={employeeService.getDepartments()}
-                        />
-                        <Controls.Checkbox
+                    <Controls.DatePicker
+                        name='hireDate'
+                        label='Hire Date'
+                        value={employees.hireDate}
+                        onChange={handleInputChange}
+                        options={employeeService.getDepartments()}
+                    />
+                    <Controls.Checkbox
                         name='isPermanent'
                         label='Permanent Employee'
                         value={employees.isPermanent}
                         onChange={handleInputChange}
-                        />
+                    />
+                    <div>
                         <Controls.Button
                             type='submit'
                             text='submit'
-                            // onClick={onClick}
                         />
+                        <Controls.Button
+                            color='default'
+                            text='reset'
+                        />
+                    </div>
                 </Grid>
             </Grid>
         </Form>
