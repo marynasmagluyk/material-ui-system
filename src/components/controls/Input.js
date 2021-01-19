@@ -10,7 +10,9 @@ const Input = (props) => {
         label={label}
         name={name}
         value={value}
-        onChange={onChange}>
+        onChange={onChange}
+        error
+        helperText='val error'>
     </TextField>)
 };
 

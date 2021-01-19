@@ -25,6 +25,14 @@ const initialFormValues = {
 
 const EmployeeForm = () => {
 
+    const validate = () => {
+        let temp = {};
+        temp.fullName = employees.fullName ? '' : 'this field is required';
+        temp.email = (/$\.+@.+..+/).test(employees.email)? '' : 'email is not valid';
+        temp.mobile = employees.mobile > 9 ? '' : 'minimum 10 numbers required';
+        temp.departmentId = employees.departmentId.length!==0 ? '' : 'this field is required';
+    };
+
     const {employees, setEmployees, handleInputChange} = useForm(initialFormValues);
 
 
