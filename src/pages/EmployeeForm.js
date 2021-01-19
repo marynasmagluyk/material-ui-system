@@ -25,19 +25,22 @@ const initialFormValues = {
 
 const EmployeeForm = () => {
 
-    const validate = () => {
-        let temp = {};
-        temp.fullName = employees.fullName ? '' : 'this field is required';
-        temp.email = (/$^|.+@.+..+/).test(employees.email) ? '' : 'email is not valid';
-        temp.mobile = employees.mobile > 9 ? '' : 'minimum 10 numbers required';
-        temp.departmentId = employees.departmentId.length !== 0 ? '' : 'this field is required';
+    const validate = (fieldValues = employees) => {
+        let temp = {...error};
+        if('fullName' in fieldValues)
+        temp.fullName = fieldValues.fullName ? '' : 'this field is required';
+        if('email' in fieldValues)
+        temp.email = (/$^|.+@.+..+/).test(fieldValues.email) ? '' : 'email is not valid';
+        if('mobile' in fieldValues)
+        temp.mobile = fieldValues.mobile > 9 ? '' : 'minimum 10 numbers required';
+        if('departmentId' in fieldValues)
+        temp.departmentId = fieldValues.departmentId.length !== 0 ? '' : 'this field is required';
 
         setError({...temp});
 
+        if(fieldValues === employees)
         return Object.values(temp).every(property => property === '');
     };
-
-    const {employees, setEmployees, resetForm,handleInputChange, error, setError} = useForm(initialFormValues);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -45,6 +48,9 @@ const EmployeeForm = () => {
             window.alert('correct fields');
         }
     };
+
+    const {employees, setEmployees, resetForm,handleInputChange, error, setError} = useForm(initialFormValues, true, validate);
+
     return (
         <Form onSubmit={handleSubmit}>
             <Grid container>
