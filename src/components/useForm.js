@@ -2,7 +2,10 @@ import React, {useState} from 'react';
 import {makeStyles} from "@material-ui/core";
 
 export const useForm = (initialFormValues) => {
+
     const [employees, setEmployees] = useState(initialFormValues);
+
+    const [error, setError] = useState({});
 
     const handleInputChange = (e) => {
         const {name, value} = e.target;
@@ -14,14 +17,16 @@ export const useForm = (initialFormValues) => {
     return ({
         employees,
         setEmployees,
-        handleInputChange
+        handleInputChange,
+        error,
+        setError,
     })
 };
 
 export const Form = (props) => {
     const classes = useStyles();
-
-    return (<form className={classes.root} autoComplete='off'>
+    const {children, ...other} = props;
+    return (<form className={classes.root} {...other} autoComplete='off'>
         {props.children}
     </form>)
 };
