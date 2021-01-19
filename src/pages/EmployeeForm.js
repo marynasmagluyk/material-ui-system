@@ -37,7 +37,7 @@ const EmployeeForm = () => {
         return Object.values(temp).every(property => property === '');
     };
 
-    const {employees, setEmployees, handleInputChange, error, setError} = useForm(initialFormValues);
+    const {employees, setEmployees, resetForm,handleInputChange, error, setError} = useForm(initialFormValues);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -113,6 +113,7 @@ const EmployeeForm = () => {
                         <Controls.Button
                             color='default'
                             text='reset'
+                            onClick={resetForm}
                         />
                     </div>
                 </Grid>

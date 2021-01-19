@@ -14,12 +14,19 @@ export const useForm = (initialFormValues) => {
             [name]: value
         })
     };
+
+    const resetForm = () => {
+        setEmployees(initialFormValues);
+        setError({})
+    };
+
     return ({
         employees,
         setEmployees,
         handleInputChange,
         error,
         setError,
+        resetForm
     })
 };
 
