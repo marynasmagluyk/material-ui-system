@@ -69,10 +69,15 @@ const useTable = (records, headCells) => {
         onChangeRowsPerPage={handleChangeRowsPerPage}/>
     );
 
+    const recordsAfterPagingAndSorting = () => {
+        return records.slice(page*rowsPerPage, (page+1)*rowsPerPage)
+    };
+
     return {
         TableContainer,
         TblHead,
-        TblPagination
+        TblPagination,
+        recordsAfterPagingAndSorting,
     };
 };
 

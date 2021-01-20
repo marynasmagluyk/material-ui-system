@@ -17,7 +17,7 @@ const Employees = () => {
 
     const classes = useStyles();
     const [records, setRecords] = useState(employeeService.getAllEmployees());
-    const {TableContainer, TblHead, TblPagination } = useTable(records, tableHeadCells);
+    const {TableContainer, TblHead, TblPagination, recordsAfterPagingAndSorting } = useTable(records, tableHeadCells);
 
 
     return (
@@ -33,7 +33,7 @@ const Employees = () => {
                     <TblHead/>
                     <TableBody>
                         {
-                            records.map((record, index) => {
+                            recordsAfterPagingAndSorting().map((record, index) => {
                                 const {fullName, email, mobile, department} = record;
                                 return (
                                     <TableRow key={index}>
