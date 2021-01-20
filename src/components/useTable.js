@@ -1,25 +1,7 @@
 import React, {useState} from 'react'
 import {Table, TableHead, TableRow, TableCell, makeStyles, TablePagination, TableSortLabel} from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({
-    table: {
-        marginTop: theme.spacing(3),
-        '& thead th': {
-            fontWeight: '600',
-            color: theme.palette.primary.main,
-            backgroundColor: theme.palette.primary.light,
-        },
-        '& tbody td': {
-            fontWeight: '300',
-        },
-        '& tdoby tr:hover': {
-            backgroundColor: '#fffbf2',
-            cursor: 'pointer',
-        },
-    }
-}));
-
-const useTable = (records, headCells) => {
+const useTable = (records, headCells, filterFn) => {
 
     const classes = useStyles();
     const pages = [5, 10, 20];
@@ -118,7 +100,7 @@ const useTable = (records, headCells) => {
     };
 
     const recordsAfterPagingAndSorting = () => {
-        return stableSort(records, getComparator(order, orderBy)).slice(page * rowsPerPage, (page + 1) * rowsPerPage)
+        return stableSort(filterFn.fn(records), getComparator(order, orderBy)).slice(page * rowsPerPage, (page + 1) * rowsPerPage)
     };
 
     return {
@@ -128,5 +110,23 @@ const useTable = (records, headCells) => {
         recordsAfterPagingAndSorting,
     };
 };
+
+const useStyles = makeStyles(theme => ({
+    table: {
+        marginTop: theme.spacing(3),
+        '& thead th': {
+            fontWeight: '600',
+            color: theme.palette.primary.main,
+            backgroundColor: theme.palette.primary.light,
+        },
+        '& tbody td': {
+            fontWeight: '300',
+        },
+        '& tdoby tr:hover': {
+            backgroundColor: '#fffbf2',
+            cursor: 'pointer',
+        },
+    }
+}));
 
 export default useTable;
