@@ -1,5 +1,5 @@
-import React from 'react'
-import {Table, TableHead, TableRow, TableCell, makeStyles} from '@material-ui/core';
+import React, {useState} from 'react'
+import {Table, TableHead, TableRow, TableCell, makeStyles, TablePagination} from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     table: {
@@ -21,7 +21,10 @@ const useStyles = makeStyles(theme => ({
 
 const useTable = (records, headCells) => {
 
-    const classes = useStyles()
+    const classes = useStyles();
+    const pages = [5, 10, 20];
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(pages[page]);
 
     const TableContainer = (props) => (
         <Table className={classes.table}>
@@ -46,9 +49,19 @@ const useTable = (records, headCells) => {
         )
     };
 
+    const TblPagination = () => (
+        <TablePagination
+        component='div'
+        page={page}
+        rowsPerPageOptions={pages}
+        rowsPerPage={rowsPerPage}
+        count={records.length}/>
+    );
+
     return {
         TableContainer,
-        TblHead
+        TblHead,
+        TblPagination
     };
 };
 

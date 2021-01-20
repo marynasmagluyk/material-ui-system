@@ -17,7 +17,7 @@ const Employees = () => {
 
     const classes = useStyles();
     const [records, setRecords] = useState(employeeService.getAllEmployees());
-    const {TableContainer, TblHead } = useTable(records, tableHeadCells);
+    const {TableContainer, TblHead, TblPagination } = useTable(records, tableHeadCells);
 
 
     return (
@@ -47,6 +47,7 @@ const Employees = () => {
                         }
                     </TableBody>
                 </TableContainer>
+                <TblPagination/>
             </Paper>
         </>
     )
