@@ -48,9 +48,12 @@ const useTable = (records, headCells) => {
                 <TableRow>
                     {
                         headCells.map((headCell) => {
-                            const {id, label} = headCell;
+                            const {id, label, disableSorting} = headCell;
                             return (
-                                <TableCell key={id}>
+                                <TableCell key={id}
+                                sortDirection={orderBy === id ? order : false}>
+                                    {
+                                        disableSorting ? label :
                                     <TableSortLabel
                                         active={orderBy === id}
                                         direction={orderBy === headCell.id ? order : 'asc'}
@@ -59,6 +62,7 @@ const useTable = (records, headCells) => {
                                         }}>
                                         {label}
                                     </TableSortLabel>
+                                    }
                                 </TableCell>
                             )
                         })

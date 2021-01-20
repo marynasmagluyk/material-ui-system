@@ -10,7 +10,7 @@ const tableHeadCells = [
     {id: 'fullName', label: 'Employee Name'},
     {id: 'email', label: 'Email Address (Personal)'},
     {id: 'mobile', label: 'Mobile Number'},
-    {id: 'department', label: 'Department'},
+    {id: 'department', label: 'Department', disableSorting: true},
 ];
 
 const Employees = () => {
