@@ -97,14 +97,14 @@ const EmployeeForm = () => {
                         label='Department'
                         value={employees.departmentId}
                         onChange={handleInputChange}
-                        options={employeeService.getDepartments()}
+                        options={employeeService.getDepartmentsArray()}
                         error={error.departmentId}/>
                     <Controls.DatePicker
                         name='hireDate'
                         label='Hire Date'
                         value={employees.hireDate}
                         onChange={handleInputChange}
-                        options={employeeService.getDepartments()}
+                        options={employeeService.getDepartmentsArray()}
                     />
                     <Controls.Checkbox
                         name='isPermanent'

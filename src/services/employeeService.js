@@ -2,7 +2,7 @@ const KEYS = {
     employees: 'employees',
     employeeId: 'employeeId'
 };
-export const getDepartments = () => ([
+export const getDepartmentsArray = () => ([
     {id: '1', title: 'Development'},
     {id: '2', title: 'Marketing'},
     {id: '3', title: 'Accounting'},
@@ -19,12 +19,19 @@ export const insertEmployee = (data) => {
 export const getAllEmployees = () => {
     if(localStorage.getItem(KEYS.employees) === null)
         localStorage.setItem(KEYS.employees, JSON.stringify([]));
-    return JSON.parse(localStorage.getItem(KEYS.employees))
+    let employees = JSON.parse(localStorage.getItem(KEYS.employees));
+
+    //map departmentId to department title
+    let departments = getDepartmentsArray();
+    return employees.map((employee) => ({
+        ...employee,
+        department: departments[employee.departmentId - 1].title
+    }))
 };
 
 export const generateEmployeeId = () => {
         if(localStorage.getItem(KEYS.employeeId) === null)
-            localStorage.setItem(KEYS.employeeId, '0')
+            localStorage.setItem(KEYS.employeeId, '0');
     let id = parseInt(localStorage.getItem(KEYS.employeeId));
     localStorage.setItem(KEYS.employeeId, (++id).toString());
     return id;
