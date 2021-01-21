@@ -23,7 +23,9 @@ const initialFormValues = {
     isPermanent: false,
 };
 
-const EmployeeForm = () => {
+const EmployeeForm = (props) => {
+
+    const {addOrEdit} = props;
 
     const validate = (fieldValues = employees) => {
         let temp = {...error};
@@ -42,15 +44,15 @@ const EmployeeForm = () => {
         return Object.values(temp).every(property => property === '');
     };
 
+    const {employees, setEmployees, resetForm,handleInputChange, error, setError} = useForm(initialFormValues, true, validate);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (validate()) {
-            employeeService.insertEmployee(employees);
-            resetForm();
+            addOrEdit(employees, resetForm);
         }
     };
 
-    const {employees, setEmployees, resetForm,handleInputChange, error, setError} = useForm(initialFormValues, true, validate);
 
     return (
         <Form onSubmit={handleSubmit}>

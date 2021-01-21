@@ -39,6 +39,13 @@ const Employees = () => {
         })
     };
 
+    const addOrEdit = (employees, resetForm) => {
+        employeeService.insertEmployee(employees);
+        resetForm();
+        setOpenPopup(false);
+        setRecords(employeeService.getAllEmployees())
+    };
+
     return (
         <>
             <PageHeader
@@ -90,7 +97,8 @@ const Employees = () => {
             <Popup openPopup={openPopup}
             setOpenPopup={setOpenPopup}
             title='Employee Form'>
-                <EmployeeForm/>
+                <EmployeeForm
+                    addOrEdit={addOrEdit}/>
             </Popup>
         </>
     )
