@@ -28,7 +28,7 @@ const Employees = () => {
     const [recordForEdit, setRecordForEdit] = useState(null);
     const [filterFn, setFilterFn] = useState({fn: items => items});
     const [openPopup, setOpenPopup] = useState(false);
-    const [notify, setNotify] = useState({isOpen: false, message:'', type:''});
+    const [notify, setNotify] = useState({isOpen: false, message: '', type: ''});
 
 
     const {TableContainer, TblHead, TblPagination, recordsAfterPagingAndSorting} = useTable(records, tableHeadCells, filterFn);
@@ -55,13 +55,21 @@ const Employees = () => {
         setOpenPopup(false);
         setRecords(employeeService.getAllEmployees());
         setNotify({
-            isOpen: true, message:'Submitted Successfully', type:'success'
+            isOpen: true, message: 'Submitted Successfully', type: 'success'
         })
     };
 
     const openInPopup = (record) => {
         setRecordForEdit(record);
         setOpenPopup(true)
+    };
+
+    const onDelete = (id) => {
+        employeeService.deleteEmployee(id);
+        setRecords(employeeService.getAllEmployees());
+        setNotify({
+            isOpen: true, message: 'Deleted Successfully', type: 'error'
+        })
     };
 
     return (
@@ -101,7 +109,7 @@ const Employees = () => {
                     <TableBody>
                         {
                             recordsAfterPagingAndSorting().map((record, index) => {
-                                const {fullName, email, mobile, department} = record;
+                                const {id, fullName, email, mobile, department} = record;
                                 return (
                                     <TableRow key={index}>
                                         <TableCell>{fullName}</TableCell>
@@ -117,7 +125,10 @@ const Employees = () => {
                                                 <EditOutlinedIcon fontSize='small'/>
                                             </Controls.ActionButton>
                                             <Controls.ActionButton
-                                                color='secondary'>
+                                                color='secondary'
+                                                onClick={() => {
+                                                    onDelete(id)
+                                                }}>
                                                 <CloseIcon fontSize='small'/>
                                             </Controls.ActionButton>
                                         </TableCell>
