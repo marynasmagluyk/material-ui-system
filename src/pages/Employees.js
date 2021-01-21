@@ -11,7 +11,7 @@ import AddIcon from '@material-ui/icons/Add'
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined'
 import {Search} from '@material-ui/icons'
 import CloseIcon from '@material-ui/icons/Close'
-
+import Notification from "../components/Notification";
 
 const tableHeadCells = [
     {id: 'fullName', label: 'Employee Name'},
@@ -28,6 +28,8 @@ const Employees = () => {
     const [recordForEdit, setRecordForEdit] = useState(null);
     const [filterFn, setFilterFn] = useState({fn: items => items});
     const [openPopup, setOpenPopup] = useState(false);
+    const [notify, setNotify] = useState({isOpen: false, message:'', type:''});
+
 
     const {TableContainer, TblHead, TblPagination, recordsAfterPagingAndSorting} = useTable(records, tableHeadCells, filterFn);
 
@@ -51,7 +53,10 @@ const Employees = () => {
         resetForm();
         setRecordForEdit(null);
         setOpenPopup(false);
-        setRecords(employeeService.getAllEmployees())
+        setRecords(employeeService.getAllEmployees());
+        setNotify({
+            isOpen: true, message:'Submitted Successfully', type:'success'
+        })
     };
 
     const openInPopup = (record) => {
@@ -131,6 +136,10 @@ const Employees = () => {
                     recordForEdit={recordForEdit}
                     addOrEdit={addOrEdit}/>
             </Popup>
+            <Notification
+                notify={notify}
+                setNotify={setNotify}
+            />
         </>
     )
 };
