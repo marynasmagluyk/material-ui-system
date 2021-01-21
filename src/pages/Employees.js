@@ -4,6 +4,7 @@ import PageHeader from "../components/PageHeader";
 import Popup from "../components/Popup";
 import useTable from "../components/useTable";
 import Controls from '../components/controls/Controls';
+import ConfirmDialog from "../components/ConfirmDialog"
 import * as employeeService from '../services/employeeService';
 import {Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment} from '@material-ui/core';
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
@@ -29,6 +30,7 @@ const Employees = () => {
     const [filterFn, setFilterFn] = useState({fn: items => items});
     const [openPopup, setOpenPopup] = useState(false);
     const [notify, setNotify] = useState({isOpen: false, message: '', type: ''});
+    const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' });
 
 
     const {TableContainer, TblHead, TblPagination, recordsAfterPagingAndSorting} = useTable(records, tableHeadCells, filterFn);
@@ -65,6 +67,10 @@ const Employees = () => {
     };
 
     const onDelete = (id) => {
+        setConfirmDialog({
+            ...confirmDialog,
+            isOpen: false
+        });
         employeeService.deleteEmployee(id);
         setRecords(employeeService.getAllEmployees());
         setNotify({
@@ -127,8 +133,12 @@ const Employees = () => {
                                             <Controls.ActionButton
                                                 color='secondary'
                                                 onClick={() => {
-                                                    onDelete(id)
-                                                }}>
+                                                    setConfirmDialog({
+                                                        isOpen: true,
+                                                        title: 'Are you sure to delete this record?',
+                                                        subTitle: "You can't undo this operation",
+                                                        onConfirm: () => { onDelete(id) }
+                                                    })}}>
                                                 <CloseIcon fontSize='small'/>
                                             </Controls.ActionButton>
                                         </TableCell>
@@ -150,6 +160,10 @@ const Employees = () => {
             <Notification
                 notify={notify}
                 setNotify={setNotify}
+            />
+            <ConfirmDialog
+                confirmDialog={confirmDialog}
+                setConfirmDialog={setConfirmDialog}
             />
         </>
     )
