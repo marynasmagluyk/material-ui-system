@@ -7,6 +7,9 @@ import useTable from "../components/useTable";
 import * as employeeService from '../services/employeeService';
 import Controls from '../components/controls/Controls';
 import {Search} from '@material-ui/icons'
+import AddIcon from '@material-ui/icons/Add'
+import Popup from "../components/Popup";
+
 
 const tableHeadCells = [
     {id: 'fullName', label: 'Employee Name'},
@@ -20,6 +23,7 @@ const Employees = () => {
     const classes = useStyles();
     const [records, setRecords] = useState(employeeService.getAllEmployees());
     const [filterFn, setFilterFn] = useState({fn: items => items});
+    const [openPopup, setOpenPopup] = useState(false);
 
     const {TableContainer, TblHead, TblPagination, recordsAfterPagingAndSorting} = useTable(records, tableHeadCells, filterFn);
 
@@ -56,8 +60,13 @@ const Employees = () => {
                         }}
                         onChange={handleSearch}
                     />
+                    <Controls.Button
+                    text='Add New'
+                    variant='outlined'
+                    startIcon={<AddIcon/>}
+                    className={classes.newButton}
+                    onClick={() =>  setOpenPopup(true)}/>
                 </Toolbar>
-                {/*<EmployeeForm></EmployeeForm>*/}
                 <TableContainer>
                     <TblHead/>
                     <TableBody>
@@ -78,6 +87,11 @@ const Employees = () => {
                 </TableContainer>
                 <TblPagination/>
             </Paper>
+            <Popup openPopup={openPopup}
+            setOpenPopup={setOpenPopup}
+            title='Employee Form'>
+                <EmployeeForm/>
+            </Popup>
         </>
     )
 };
@@ -89,6 +103,10 @@ const useStyles = makeStyles(theme => ({
     },
     searchInput: {
         width: '75%'
+    },
+    newButton: {
+        position: 'absolute',
+        right: '10px',
     }
 }));
 
