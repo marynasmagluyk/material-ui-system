@@ -8,20 +8,24 @@ import * as employeeService from '../services/employeeService';
 import {Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment} from '@material-ui/core';
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 import AddIcon from '@material-ui/icons/Add'
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined'
 import {Search} from '@material-ui/icons'
+import CloseIcon from '@material-ui/icons/Close'
 
 
 const tableHeadCells = [
     {id: 'fullName', label: 'Employee Name'},
     {id: 'email', label: 'Email Address (Personal)'},
     {id: 'mobile', label: 'Mobile Number'},
-    {id: 'department', label: 'Department', disableSorting: true},
+    {id: 'department', label: 'Department'},
+    {id: 'actions', label: 'Actions', disableSorting: true},
 ];
 
 const Employees = () => {
 
     const classes = useStyles();
     const [records, setRecords] = useState(employeeService.getAllEmployees());
+    const [recordForEdit, setRecordForEdit] = useState(null);
     const [filterFn, setFilterFn] = useState({fn: items => items});
     const [openPopup, setOpenPopup] = useState(false);
 
@@ -31,19 +35,28 @@ const Employees = () => {
         let target = e.target;
         setFilterFn({
             fn: items => {
-                if(target.value === '')
+                if (target.value === '')
                     return items;
                 else
-                    return items.filter( item => item.fullName.toLowerCase().includes(target.value))
+                    return items.filter(item => item.fullName.toLowerCase().includes(target.value))
             }
         })
     };
 
     const addOrEdit = (employees, resetForm) => {
-        employeeService.insertEmployee(employees);
+        if (employees.id === 0)
+            employeeService.insertEmployee(employees);
+        else
+            employeeService.updateEmployee(employees);
         resetForm();
+        setRecordForEdit(null);
         setOpenPopup(false);
         setRecords(employeeService.getAllEmployees())
+    };
+
+    const openInPopup = (record) => {
+        setRecordForEdit(record);
+        setOpenPopup(true)
     };
 
     return (
@@ -68,11 +81,15 @@ const Employees = () => {
                         onChange={handleSearch}
                     />
                     <Controls.Button
-                    text='Add New'
-                    variant='outlined'
-                    startIcon={<AddIcon/>}
-                    className={classes.newButton}
-                    onClick={() =>  setOpenPopup(true)}/>
+                        text='Add New'
+                        variant='outlined'
+                        startIcon={<AddIcon/>}
+                        className={classes.newButton}
+                        onClick={() => {
+                            setOpenPopup(true);
+                            setRecordForEdit(null);
+                        }}
+                    />
                 </Toolbar>
                 <TableContainer>
                     <TblHead/>
@@ -86,6 +103,19 @@ const Employees = () => {
                                         <TableCell>{email}</TableCell>
                                         <TableCell>{mobile}</TableCell>
                                         <TableCell>{department}</TableCell>
+                                        <TableCell>
+                                            <Controls.ActionButton
+                                                color='primary'
+                                                onClick={() => {
+                                                    openInPopup(record)
+                                                }}>
+                                                <EditOutlinedIcon fontSize='small'/>
+                                            </Controls.ActionButton>
+                                            <Controls.ActionButton
+                                                color='secondary'>
+                                                <CloseIcon fontSize='small'/>
+                                            </Controls.ActionButton>
+                                        </TableCell>
                                     </TableRow>
                                 )
                             })
@@ -95,9 +125,10 @@ const Employees = () => {
                 <TblPagination/>
             </Paper>
             <Popup openPopup={openPopup}
-            setOpenPopup={setOpenPopup}
-            title='Employee Form'>
+                   setOpenPopup={setOpenPopup}
+                   title='Employee Form'>
                 <EmployeeForm
+                    recordForEdit={recordForEdit}
                     addOrEdit={addOrEdit}/>
             </Popup>
         </>

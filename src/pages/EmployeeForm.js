@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Grid} from '@material-ui/core';
 import {useForm, Form} from "../components/useForm";
 import Controls from '../components/controls/Controls';
@@ -25,26 +25,26 @@ const initialFormValues = {
 
 const EmployeeForm = (props) => {
 
-    const {addOrEdit} = props;
+    const {addOrEdit, recordForEdit} = props;
 
     const validate = (fieldValues = employees) => {
         let temp = {...error};
-        if('fullName' in fieldValues)
-        temp.fullName = fieldValues.fullName ? '' : 'this field is required';
-        if('email' in fieldValues)
-        temp.email = (/$^|.+@.+..+/).test(fieldValues.email) ? '' : 'email is not valid';
-        if('mobile' in fieldValues)
-        temp.mobile = fieldValues.mobile > 9 ? '' : 'minimum 10 numbers required';
-        if('departmentId' in fieldValues)
-        temp.departmentId = fieldValues.departmentId.length !== 0 ? '' : 'this field is required';
+        if ('fullName' in fieldValues)
+            temp.fullName = fieldValues.fullName ? '' : 'this field is required';
+        if ('email' in fieldValues)
+            temp.email = (/$^|.+@.+..+/).test(fieldValues.email) ? '' : 'email is not valid';
+        if ('mobile' in fieldValues)
+            temp.mobile = fieldValues.mobile > 9 ? '' : 'minimum 10 numbers required';
+        if ('departmentId' in fieldValues)
+            temp.departmentId = fieldValues.departmentId.length !== 0 ? '' : 'this field is required';
 
         setError({...temp});
 
-        if(fieldValues === employees)
-        return Object.values(temp).every(property => property === '');
+        if (fieldValues === employees)
+            return Object.values(temp).every(property => property === '');
     };
 
-    const {employees, setEmployees, resetForm,handleInputChange, error, setError} = useForm(initialFormValues, true, validate);
+    const {employees, setEmployees, resetForm, handleInputChange, error, setError} = useForm(initialFormValues, true, validate);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -52,6 +52,13 @@ const EmployeeForm = (props) => {
             addOrEdit(employees, resetForm);
         }
     };
+
+    useEffect(() => {
+        if (recordForEdit !== null)
+            setEmployees({
+                ...recordForEdit
+            })
+            }, [recordForEdit]);
 
 
     return (

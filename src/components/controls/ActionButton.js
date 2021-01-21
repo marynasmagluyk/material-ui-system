@@ -1,6 +1,5 @@
 import React from 'react';
 import {Button, makeStyles} from '@material-ui/core';
-// import Controls from '../components/controls/Controls';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -14,7 +13,7 @@ const useStyles = makeStyles(theme => ({
         }
     },
     primary: {
-        backgroundColor: theme.palette.secondary.light,
+        backgroundColor: theme.palette.primary.light,
         '& .MuiButton-label': {
             color: theme.palette.primary.main,
         }
