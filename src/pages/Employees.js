@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import EmployeeForm from "./EmployeeForm";
 import PageHeader from "../components/PageHeader";
-import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
-import {Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment} from '@material-ui/core';
-import useTable from "../components/useTable";
-import * as employeeService from '../services/employeeService';
-import Controls from '../components/controls/Controls';
-import {Search} from '@material-ui/icons'
-import AddIcon from '@material-ui/icons/Add'
 import Popup from "../components/Popup";
+import useTable from "../components/useTable";
+import Controls from '../components/controls/Controls';
+import * as employeeService from '../services/employeeService';
+import {Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment} from '@material-ui/core';
+import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
+import AddIcon from '@material-ui/icons/Add'
+import {Search} from '@material-ui/icons'
 
 
 const tableHeadCells = [
